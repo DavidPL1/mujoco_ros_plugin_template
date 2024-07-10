@@ -1,0 +1,11 @@
+<!-- TODO: rename library name, class name and type, plugin_namespace, and add correct description -->
+<library path="lib/libmujoco_ros_plugin_template">
+  <class
+    name="mujoco_ros/TestPlugin"
+    type="mujoco_ros::plugin_namespace::TestPlugin"
+    base_class_type="mujoco_ros::MujocoPlugin">
+    <description>
+      MuJoCo ROS Plugin Template
+    </description>
+  </class>
+</library>

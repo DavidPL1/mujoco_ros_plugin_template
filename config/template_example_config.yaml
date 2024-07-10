@@ -1,0 +1,3 @@
+MujocoPlugins:
+  - type: mujoco_plugin_template/PluginTemplate
+
