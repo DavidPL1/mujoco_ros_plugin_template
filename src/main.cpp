@@ -1,7 +1,7 @@
 /*********************************************************************
  * Software License Agreement (BSD License)
  *
- *  Copyright (c) 2023, Bielefeld University
+ *  Copyright (c) 2025, Bielefeld University
  *  All rights reserved.
  *
  *  Redistribution and use in source and binary forms, with or without
@@ -34,7 +34,6 @@
 
 /* Authors: David P. Leins */
 
-#include <pluginlib/class_list_macros.h>
 
 /*
 Plugin customization TODOs:
@@ -46,7 +45,25 @@ Plugin customization TODOs:
 5. delete functions that will not be used (which where deleted in the header file)
 */ 
 
-#include <mujoco_ros_plugin_template/plugin_template.h>
+#include "mujoco_ros_plugin_template/plugin_template.h"
+
+// C Standard Library Headers
+// Include c headers here
+// C++ Standard Library Headers
+#include <memory> // for allocator
+
+// 3rd Party Library Headers
+// ROS
+#include "XmlRpcValue.h" // for XmlRpcValue
+#include "pluginlib/class_list_macros.hpp" // for PLUGINLIB_EXPORT_CLASS
+// MuJoCo
+#include "mujoco/mjdata.h" // for mjData
+#include "mujoco/mjmodel.h" // for mjModel
+#include "mujoco/mjvisualize.h" // for mjvScene
+
+// Project Library Headers
+#include "mujoco_ros/common_types.h" // for mujoco_ros
+#include "mujoco_ros/plugin_utils.h" // for MujocoPlugin
 
 using namespace mujoco_ros;
 
@@ -79,6 +96,13 @@ bool PluginTemplate::load(const mjModel *m, mjData *d)
 	m_ = m;
 	d_ = d;
 	return true;
+}
+
+void PluginTemplate::extendedFunctionality()
+{
+	ROS_INFO("Extended functionality function of PluginTemplate called.");
+	ROS_INFO_STREAM("Example bool: " << example_bool_);
+	ROS_INFO_STREAM("Example int: " << example_int_);
 }
 
 void PluginTemplate::reset()

@@ -11,6 +11,7 @@
   <license>BSD</license>
 
   <buildtool_depend>catkin</buildtool_depend>
+  <depend>pybind11_catkin</depend>
   <depend>roscpp</depend>
   <depend>pluginlib</depend>
   <depend>mujoco_ros</depend>

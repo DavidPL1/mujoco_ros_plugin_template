@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+  <launch>
+  <arg name="modelfile"            default="$(find mujoco_ros)/assets/pendulum_world.xml" doc="MuJoCo xml file to load. Should define robot model and world." />
+  <arg name="mujoco_plugin_config" default="$(find mujoco_ros_plugin_template)/config/template_example_config.yaml"                                        doc="Optionally provide the path to a yaml with plugin configurations to load" />
+  <arg name="verbose" default="false" />
+  <arg name="attach_viewer" default="false" />
+  <arg name="interactive" default="false" />
+  <arg unless="$(arg attach_viewer)" name="viewer_arg" value="" />
+  <arg     if="$(arg attach_viewer)" name="viewer_arg" value="--viewer" />
+  <arg unless="$(arg interactive)" name="interactive_arg" value="" />
+  <arg     if="$(arg interactive)" name="interactive_arg" value="--interactive" />
+  <arg name="command_args" value="$(arg viewer_arg) $(arg interactive_arg)" />
+
+  <env name="ROSCONSOLE_FORMAT" value="[${severity}] [${time}] [${logger}] [${node}]: ${message}"/>
+  <env if="$(arg verbose)" name="ROSCONSOLE_CONFIG_FILE"
+       value="$(find mujoco_ros)/rosconsole.config"/>
+
+  <group ns="mujoco_server">
+    <param name="modelfile" value="$(arg modelfile)" />
+    <rosparam file="$(arg mujoco_plugin_config)" />
+    <param name="verbose" value="$(arg verbose)" />
+    <param name="num_mj_threads" value="1" />
+  </group>
+  <node name="mjserv" pkg="mujoco_ros_plugin_template" type="mj_ros.py" args="$(arg command_args)" output="screen" />
+
+  <!-- <include file="$(find mujoco_ros)/launch/launch_server.launch" pass_all_args="true">
+    <arg name="use_sim_time" value="true" />
+  </include> -->
+</launch>

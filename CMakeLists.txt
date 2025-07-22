@@ -21,6 +21,7 @@ find_package(catkin REQUIRED COMPONENTS
   roscpp
   pluginlib
   mujoco_ros
+  pybind11_catkin
 )
 
 catkin_package(
@@ -28,6 +29,7 @@ catkin_package(
     roscpp
     pluginlib
     mujoco_ros
+    pybind11_catkin
   INCLUDE_DIRS
     include
   LIBRARIES
@@ -46,6 +48,8 @@ target_include_directories(${PROJECT_NAME} PUBLIC
 target_link_libraries(${PROJECT_NAME}
   ${catkin_LIBRARIES}
 )
+
+add_subdirectory(python)
 
 install(TARGETS ${PROJECT_NAME}
   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}

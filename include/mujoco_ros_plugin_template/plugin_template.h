@@ -1,7 +1,7 @@
 /*********************************************************************
  * Software License Agreement (BSD License)
  *
- *  Copyright (c) 2023, Bielefeld University
+ *  Copyright (c) 2025, Bielefeld University
  *  All rights reserved.
  *
  *  Redistribution and use in source and binary forms, with or without
@@ -44,11 +44,12 @@ Plugin customization TODOs:
 3. replace PluginTemplate with plugin class name 
 4. delete functions that will not be overridden
 5. add plugin specific functions and member definitions
+6. Rename or remove friend class (PluginTemplateAccessor)
 */
 
-#include <mujoco_ros/plugin_utils.h>
-#include <mujoco_ros/common_types.h>
-#include <mujoco_ros/mujoco_env.h>
+#include "mujoco_ros/plugin_utils.h"
+#include "mujoco_ros/common_types.h"
+#include "mujoco_ros/mujoco_env.h"
 
 using namespace mujoco_ros;
 
@@ -57,6 +58,10 @@ namespace mujoco_ros::plugin_namespace {
 class PluginTemplate : public MujocoPlugin
 {
 public:
+	// Friend definition to access private/protected members in python bindings
+	// Remove if not implementing python bindings
+	friend class PluginTemplateAccessor;
+
 	PluginTemplate()           = default;
 	~PluginTemplate() override = default;
 
@@ -68,9 +73,17 @@ public:
 	void lastStageCallback(const mjModel *model, mjData *data) override;
 	void onGeomChanged(const mjModel *model, mjData *data, const int geom_id) override;
 
+	// Any additional functionality that should be exposed in the python bindings of the plugin
+	void extendedFunctionality();
+
 	// The env_ptr_ (shared_ptr) in the parent class ensures mjModel and mjData are not destroyed
 	const mjModel *m_;
 	mjData *d_;
 
+private:
+
+	// Some private member variables can be defined here
+	bool example_bool_ = false; // Example boolean member variable
+	int example_int_ = 0; // Example integer member variable
 };
 } // namespace mujoco_ros::plugin_namespace
