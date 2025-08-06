@@ -1,7 +1,6 @@
-import mujoco_ros
-
+# Replace pymujoco_ros_template with the actual plugin bindings library name 
 try:
-    from _mujoco_ros_template_python import MujocoRosTemplatePlugin
+    from pymujoco_ros_template import MujocoRosTemplatePlugin
 except ImportError as e:
     print("Could not find mujoco_ros_template plugin python bindings!")
     raise e

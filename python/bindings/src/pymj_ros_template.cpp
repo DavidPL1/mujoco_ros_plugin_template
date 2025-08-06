@@ -84,8 +84,12 @@ public:
 
 namespace mujoco_ros::python::plugin_namespace {
 
-PYBIND11_MODULE(_mujoco_ros_template_python, m)
+PYBIND11_MODULE(pymujoco_ros_template, m)
 {
+    // This line is necessary to ensure that MujocoPlugin is available, otherwise an import error
+    // be thrown when trying to import the Python module without import mujoco_ros first.
+    py::module::import("mujoco_ros"); 
+
     py::class_<mujoco_ros::plugin_namespace::PluginTemplate, mujoco_ros::MujocoPlugin, std::shared_ptr<mujoco_ros::plugin_namespace::PluginTemplate>>(m, "MujocoRosTemplatePlugin")
     .def(py::init<>())
     .def_property(
