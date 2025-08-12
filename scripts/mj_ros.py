@@ -7,7 +7,7 @@ import argparse
 from IPython import embed
 
 try:
-    from _mujoco_ros_template_python import MujocoRosTemplatePlugin
+    from pymujoco_ros_template import MujocoRosTemplatePlugin
 except ImportError as e:
     print("Could not find mujoco_ros_template plugin python bindings!")
     raise e
